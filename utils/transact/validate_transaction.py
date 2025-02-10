@@ -1,2 +1,4 @@
+from utils.ledger import ledger_util
+
 def is_valid(method,adr_x,amount):
-    return True
+    if(ledger_util.)
