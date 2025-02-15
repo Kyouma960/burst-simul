@@ -13,7 +13,9 @@ def transact(data):
             amount = data.get("amount")
             signature = data.get("signature")
             timestamp = data.get("timestamp")
-
+            key=None
+            if (method=='burn'):
+                key = ledger_util.gen_md5(signature)
             curated_data={
                 'method': method,
                 'adr_x': adr_x,
@@ -22,9 +24,10 @@ def transact(data):
                 'signature': signature,
                 'timestamp': timestamp,
                 'timestamp_node': timestamp_node,
+                'key': key 
             }    
 
-            if(validate_transaction.is_valid(method, adr_x, amount)):
+            if(validate_transaction.is_valid(method, adr_x, amount,key)):
                 ledger_util.ledger_add(ledger_util.transact_path,curated_data)
             else:
                 response = {"message":"Invalid Transaction.",}

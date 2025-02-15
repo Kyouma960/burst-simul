@@ -5,7 +5,7 @@ from utils.wallet import revoke
 def endorse(data):    
     try:
         if(data.get("method")=="wallet"):
-            wallet_endorse_check(data.get("adr_x"),data.get("adr_y"),data.get("amount"))
+            wallet_endorse_check.is_valid(data.get("adr_x"),data.get("adr_y"),data.get("amount"))
 
         elif(data.get("method")=="consti"):
             

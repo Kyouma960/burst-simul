@@ -26,11 +26,9 @@ def is_valid(data):
     curated_data=f"""{curated_data}"""
     #print(curated_data)
     if (decrypt_with_public_key(data.get("adr_x"), data.get("signature"), curated_data)):
-        print("True")
         return True
 
     else:
-        print("False")
         return False
 
 
