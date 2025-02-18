@@ -24,7 +24,7 @@ def ledger_add(path, data):
     ledger.append(data)
     ledger_write(path,ledger) 
 
-def ledger_scan(path, value):
+def ledger_scan(path, values):
     ledger_read(path)
     return [entry for entry in ledger if value in entry.values() or value in str(entry)]
 

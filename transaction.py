@@ -12,22 +12,39 @@ def transact(data):
             adr_y = data.get("adr_y")
             amount = data.get("amount")
             signature = data.get("signature")
-            timestamp = data.get("timestamp")
-            key=None
-            if (method=='burn'):
-                key = ledger_util.gen_md5(signature)
-            curated_data={
-                'method': method,
-                'adr_x': adr_x,
-                'adr_y': adr_y,
-                'amount': amount,
-                'signature': signature,
-                'timestamp': timestamp,
-                'timestamp_node': timestamp_node,
-                'key': key 
-            }    
+            curated_data={}
+            key = ledger_util.gen_md5(signature)
+            validity, response=validate_transaction.is_valid(method, adr_x, amount)
 
-            if(validate_transaction.is_valid(method, adr_x, amount,key)):
+
+            if (method=='burn'):
+
+                timestamp = data.get("timestamp")
+                curated_data={
+                    'method': method,
+                    'adr_x': adr_x,
+                    'adr_y': adr_y,
+                    'amount': amount,
+                    'signature': signature,
+                    'timestamp': timestamp,
+                    'timestamp_node': timestamp_node,
+                    'key': key 
+                }
+
+            if (method=='send'):
+
+                curated_data={
+                    'method': method,
+                    'adr_x': adr_x,
+                    'adr_y': adr_y,
+                    'amount': amount,
+                    'signature': signature,
+                    'link': link, 
+                    'epoch': epoch,
+                    'key': key
+                }    
+            
+            if(validity):
                 ledger_util.ledger_add(ledger_util.transact_path,curated_data)
             else:
                 response = {"message":"Invalid Transaction.",}
