@@ -2,8 +2,8 @@ from utils.ledger import ledger_util
 from utils.transact import validate_transaction
 import time
 
-def check(method, adr_x):
-    response=validate_transaction.is_valid_md5(method, adr_x)
+def check(adr_x):
+    response=validate_transaction.is_valid_md5(adr_x)
     return response
 
 def send(link, method, adr_x):
@@ -43,7 +43,7 @@ def transact(data):
 
         if(method=='check'):
 
-            response=check(method,adr_x)
+            response=check(adr_x)
             return response
 
         if(method=='send'):

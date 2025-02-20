@@ -23,8 +23,7 @@ def is_valid_burn(method, adr_x, amount):
     if (method=='burn'):
         total=0
         timestamps=[]
-        values=[method, adr_x]
-        ledger_list=ledger_util.ledger_scan(ledger_util.transact_path, values)
+        ledger_list=ledger_util.ledger_read(ledger_util.transact_path)
         for item in ledger_list:
             if (item.get("adr_x") == adr_x):
                 total=total+int(item.get("amount"))
@@ -42,36 +41,37 @@ def is_valid_burn(method, adr_x, amount):
             }
             return False, (wallet_increment-total)
 
-def is_valid_md5(method,adr_x):
-    if (method=='send'):
-        md5_receive_list=[]
-        md5_send_list=[]
-        amount_list={}
-        values=[adr_x]
-        ledger_list=ledger_util.ledger_scan(ledger_util.transact_path, values)
+def is_valid_md5(adr_x):
+    md5_receive_list=[]
+    md5_send_list=[]
+    amount_list={}
+    values=[adr_x]
+    ledger_list=ledger_util.ledger_scan(ledger_util.transact_path, values)
+    print(ledger_list)
+    for item in ledger_list:
+        if (item.get("adr_y") == adr_x):
+            print("1")
+            key_temp=item.get("key")
+            md5_receive_list.append(item.get("key"))
+            amount_list[key_temp] = item.get("amount")
 
-        for item in ledger_list:
-            if (item.get("adr_y") == adr_x):
-                key_temp=item.get("key")
-                md5_receive_list.append(item.get("key"))
-                amount_list[key_temp] = item.get("amount")
- 
-            if (item.get("adr_x") == adr_x):
-                md5_send_list.append(item.get("link"))
-        md5_list=list(set(md5_receive_list) - set(md5_send_list))
-        valid_amounts = {md5: amount_list.get(md5, 0) for md5 in md5_list}
+        if (item.get("adr_x") == adr_x and item.get("method")=="send"):
+            md5_send_list.append(item.get("link"))
+    print(md5_receive_list)
+    md5_list=list(set(md5_receive_list) - set(md5_send_list))
+    valid_amounts = {md5: amount_list.get(md5, 0) for md5 in md5_list}
 
-        if (md5_list):
-            response={
-                    'message' : 'These are the ones that can be transferred',
-                    'md5_list' : md5_list,
-                    'amount_list': valid_amounts
-            }
-            return response
-        else:
-            response={
-                'message':'Not possible'
-            }
-            return response 
+    if (md5_list):
+        response={
+                'message' : 'These are the ones that can be transferred',
+                'md5_list' : md5_list,
+                'amount_list': valid_amounts
+        }
+        return response
+    else:
+        response={
+            'message':'Not possible'
+        }
+        return response 
 
 
