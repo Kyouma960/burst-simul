@@ -2,7 +2,13 @@ from utils.ledger import ledger_util
 import time
 rate_increment=10 #minutely rate
 expiry_time=2 #hours
-def is_expired(epoch,ledger_list):
+def expiry_check(link, method, adr_x):
+    values=[method, adr_x]
+    ledger_list=ledger_util.ledger_scan(ledger_util.transact_path, values)
+    for item in ledger_list:
+        if (item.get("key")==link):
+            epoch=item.get("epoch", link)
+
     for item in ledger_list:
         if(item.get("key")==epoch):
             epoch_time=item.get("timestamp_node")
@@ -34,7 +40,7 @@ def is_valid_burn(method, adr_x, amount):
             }
             return False, response
 
-def is_valid_send(method,adr_x,amount):
+def is_valid_md5(method,adr_x,amount):
     if (method=='send'):
         md5_receive_list=[]
         md5_send_list=[]
@@ -43,9 +49,6 @@ def is_valid_send(method,adr_x,amount):
         ledger_list=ledger_util.ledger_scan(ledger_util.transact_path, values)
 
         for item in ledger_list:
-            if (item.get("key")==link):
-                epoch=item.get("epoch", link)
-
             if (item.get("adr_y") == adr_x):
                 key_temp=item.get("key")
                 md5_receive_list.append(item.get("key"))
@@ -56,16 +59,17 @@ def is_valid_send(method,adr_x,amount):
         md5_list=list(set(md5_receive_list) - set(md5_send_list))
         valid_amounts = {md5: amount_list.get(md5, 0) for md5 in md5_list}
 
-        if (md5_list and not is_expired(epoch)):
+        if (md5_list):
             response={
                     'message' : 'These are the ones that can be transferred'
                     'md5_list' : md5_list
                     'amount_list': valid_amounts
             }
-            return True, response
+            return response
         else:
             response={
                 'message':'Not possible'
             }
-            return False, response 
+            return response 
+
 

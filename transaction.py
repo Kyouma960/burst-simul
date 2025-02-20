@@ -2,8 +2,10 @@ from utils.ledger import ledger_util
 from utils.transact import validate_transaction
 import time
 timestamp_node=time.time()
+
 def transact(data):    
     response={}
+    validity=False
     try:
 
         if(data.get("method")=="send" or data.get("method")=="burn"):
@@ -14,11 +16,11 @@ def transact(data):
             signature = data.get("signature")
             curated_data={}
             key = ledger_util.gen_md5(signature)
-            validity, response=validate_transaction.is_valid(method, adr_x, amount)
 
 
             if (method=='burn'):
 
+                validity, response=validate_transaction.is_valid_burn(method, adr_x, amount)
                 timestamp = data.get("timestamp")
                 curated_data={
                     'method': method,
@@ -33,6 +35,9 @@ def transact(data):
 
             if (method=='send'):
 
+                response=validate_transaction.is_valid_md5(method, adr_x, amount)
+                #user_md5=input("Enter which one do you want to send:\n")
+                validity=not(validate_transaction.expiry_check(link,method,adr_x)) 
                 curated_data={
                     'method': method,
                     'adr_x': adr_x,
@@ -43,7 +48,8 @@ def transact(data):
                     'epoch': epoch,
                     'key': key
                 }    
-            
+
+
             if(validity):
                 ledger_util.ledger_add(ledger_util.transact_path,curated_data)
             else:
