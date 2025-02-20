@@ -1,9 +1,15 @@
 from utils.ledger import ledger_util
 import time
 rate_increment=10 #minutely rate
-
+expiry_time=2 #hours
 def is_expired(epoch,ledger_list):
-    ledger_
+    for item in ledger_list:
+        if(item.get("key")==epoch):
+            epoch_time=item.get("timestamp_node")
+        if((time.time()-epoch_time)<(expiry_time*60*60)):
+                False
+        else:
+                True
 
 def is_valid_burn(method, adr_x, amount):
     if (method=='burn'):
@@ -47,11 +53,10 @@ def is_valid_send(method,adr_x,amount):
  
             if (item.get("adr_x") == adr_x):
                 md5_send_list.append(item.get("link"))
-
         md5_list=list(set(md5_receive_list) - set(md5_send_list))
         valid_amounts = {md5: amount_list.get(md5, 0) for md5 in md5_list}
 
-        if (md5_list):
+        if (md5_list and not is_expired(epoch)):
             response={
                     'message' : 'These are the ones that can be transferred'
                     'md5_list' : md5_list
