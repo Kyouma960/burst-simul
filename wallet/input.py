@@ -1,4 +1,5 @@
 import time
+import json
 from core.keys import encrypt
 from template import transact, endorse, query
 from core import connect
@@ -130,4 +131,4 @@ else:
 
 print(payload)
 out=connect.post_req(payload)
-print(out)
+print(out.json())
