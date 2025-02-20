@@ -2,39 +2,17 @@ from utils.ledger import ledger_util
 from utils.transact import validate_transaction
 import time
 
-def check():
+def check(method, adr_x):
     response=validate_transaction.is_valid_md5(method, adr_x, amount)
     return response
 
-def send():
-    validity=not(validate_transaction.expiry_check(link,method,adr_x)) 
-    curated_data={
-        'method': method,
-        'adr_x': adr_x,
-        'adr_y': adr_y,
-        'amount': amount,
-        'signature': signature,
-        'link': link, 
-        'epoch': epoch,
-        'key': key
-    }
-    return validity, curated_data
+def send(link, method, adr_x):
+    epoch, validity=not(validate_transaction.expiry_check(link,method,adr_x)) 
+    return validity, epoch
 
-def burn():
-    timestamp_node=time.time()
-    validity, response=validate_transaction.is_valid_burn(method, adr_x, amount)
-    timestamp = data.get("timestamp")
-    curated_data={
-        'method': method,
-        'adr_x': adr_x,
-        'adr_y': adr_y,
-        'amount': amount,
-        'signature': signature,
-        'timestamp': timestamp,
-        'timestamp_node': timestamp_node,
-        'key': key
-    }
-    return validity, curated_data
+def burn(method, adr_x ,amount):
+    validity=validate_transaction.is_valid_burn(method, adr_x, amount)
+    return validity
 
 def transact(data):    
     response={}
@@ -48,7 +26,39 @@ def transact(data):
         signature = data.get("signature")
         curated_data={}
         key = ledger_util.gen_md5(signature)
+        
+        if(method=='burn'):
+            validity=burn(method,adr_x,amount)
+            curated_data={
+                'method': method,
+                'adr_x': adr_x,
+                'adr_y': adr_y,
+                'amount': amount,
+                'signature': signature,
+                'timestamp': timestamp,
+                'timestamp_node': time.time(),
+                'key': key
+            }
+        
 
+        if(method=='check'):
+            response=check(method,adr_x)
+            return response
+
+        if(method=='send'):
+            validity,epoch=send(link,method,adr_x)
+            curated_data={
+                'method': method,
+                'adr_x': adr_x,
+                'adr_y': adr_y,
+                'amount': amount,
+                'signature': signature,
+                'link': link, 
+                'epoch': epoch,
+                'key': key
+            }
+
+     
         if(validity):
             ledger_util.ledger_add(ledger_util.transact_path,curated_data)
         else:

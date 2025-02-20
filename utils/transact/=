@@ -1,9 +1,7 @@
 from utils.ledger import ledger_util
 import time
-
 rate_increment=10 #minutely rate
 expiry_time=2 #hours
-
 def expiry_check(link, method, adr_x):
     values=[method, adr_x]
     ledger_list=ledger_util.ledger_scan(ledger_util.transact_path, values)
@@ -15,9 +13,9 @@ def expiry_check(link, method, adr_x):
         if(item.get("key")==epoch):
             epoch_time=item.get("timestamp_node")
         if((time.time()-epoch_time)<(expiry_time*60*60)):
-                epoch, False
+                False
         else:
-                epoch, True
+                True
 
 def is_valid_burn(method, adr_x, amount):
     if (method=='burn'):
@@ -35,12 +33,12 @@ def is_valid_burn(method, adr_x, amount):
             response={
                 'message':'Fund transferred!'
             }
-            return True
+            return True, response
         else:
             response={
                 'message':'No balance, you need more funds.'
             }
-            return False
+            return False, response
 
 def is_valid_md5(method,adr_x):
     if (method=='send'):
