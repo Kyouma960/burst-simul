@@ -30,7 +30,7 @@ def is_valid_burn(method, adr_x, amount):
                 total=total+int(item.get("amount"))
                 timestamps.append(item.get("timestamp_node"))
         wallet_epoch=min(timestamps)
-        wallet_increment=(time.time()-wallet_epoch)*(rate_increment/60))
+        wallet_increment=(time.time()-wallet_epoch)*(rate_increment/60)
         if ((total+amount)<wallet_increment):
             response={
                 'message':'Fund transferred!'
