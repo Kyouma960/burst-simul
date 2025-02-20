@@ -25,8 +25,12 @@ def ledger_add(path, data):
     ledger_write(path,ledger) 
 
 def ledger_scan(path, values):
-    ledger_read(path)
-    return [entry for entry in ledger if value in entry.values() or value in str(entry)]
+    ledger = ledger_read(path)
+    return [
+        entry for entry in ledger
+        if any(value in entry.values() or value in str(entry) for value in values)
+    ]
+
 
 #def wallets(adr_x, adr_y, amount, method, timestamp, timestamp_node):
  #   ledger=ledger_read(wallet_path)

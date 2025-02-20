@@ -35,12 +35,12 @@ def is_valid_burn(method, adr_x, amount):
             response={
                 'message':'Fund transferred!'
             }
-            return True
+            return True, (wallet_increment-total)
         else:
             response={
                 'message':'No balance, you need more funds.'
             }
-            return False
+            return False, (wallet_increment-total)
 
 def is_valid_md5(method,adr_x):
     if (method=='send'):
@@ -63,8 +63,8 @@ def is_valid_md5(method,adr_x):
 
         if (md5_list):
             response={
-                    'message' : 'These are the ones that can be transferred'
-                    'md5_list' : md5_list
+                    'message' : 'These are the ones that can be transferred',
+                    'md5_list' : md5_list,
                     'amount_list': valid_amounts
             }
             return response

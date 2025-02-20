@@ -1,7 +1,6 @@
 from utils.wallet import wallet_endorse_check
 from utils.consti import consti_vote, consti_publish
 from utils.wallet import delegate
-from utils.wallet import revoke
 def endorse(data):    
     try:
         if(data.get("method")=="wallet"):

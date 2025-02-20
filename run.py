@@ -10,15 +10,18 @@ def handle_post():
     if not data:
         return 400
 
-    if not (signature_verify.is_valid(data) and wallet_verify.is_valid(data)):
+    if not(signature_verify.is_valid(data) and wallet_verify.is_valid(data)):
+        print(wallet_verify.is_valid(data))
         return 400
+        
 
     response = {
             "message": "Recieved",
             }
 
     if (data.get("type")=="transaction"):
-       transaction.transact(data) 
+        print("yes")
+        response=transaction.transact(data) 
 
 
     elif (data.get("type")=="endorse"):
@@ -31,9 +34,6 @@ def handle_post():
 
     return jsonify(response), 200
 
-
-#@app.route('/get', methods=['GET'])
-#def handle_get():
 
 
 
