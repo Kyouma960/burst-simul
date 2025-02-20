@@ -7,11 +7,14 @@ def general(adr_x):
     }
     return payload 
 
-def check_md5(adr_x):
+def check_md5(adr_x, signature):
     payload={
+        'type':'transaction',
         'method':'check',
         'adr_x':adr_x,
+        'signature' : signature,
     }
+    return payload
 
 def wallet(adr_x):
     payload={

@@ -31,9 +31,12 @@ if (a==1):
         payload["signature"]=signature
 
     if (method==2):
-        payload=query.check(adr_x)
-        out=connect.get_req(payload)
-        print(out)
+        payload=query.check_md5(adr_x,"")
+        signature = encrypt.encrypt_with_private_key(private_key,payload)
+        payload["signature"]=signature
+        print(payload)
+        out=connect.post_req(payload)
+        print(out.json())
         md5_choice=input("Which one?")
         payload=transact.send(adr_x,adr_y,amount,timestamp, md5_choice,"")
         signature = encrypt.encrypt_with_private_key(private_key,payload)
