@@ -15,9 +15,9 @@ a=int(input("""
 
 if (a==1):
     method=int(input("""
-                Choose one:
-                1. BRN
-                2. TRST
+            Choose one:
+            1. BRN
+            2. TRST
         """))
     adr_y=input("Enter wallet address of receiver:")
     amount=int(input("How much amount would you like to send?:"))
@@ -30,7 +30,11 @@ if (a==1):
         payload["signature"]=signature
 
     if (method==2):
-        payload=transact.send(adr_x,adr_y,amount,timestamp,"")
+        payload=query.check(adr_x)
+        out=connect.get_req(payload)
+        print(out)
+        md5_choice=input("Which one?")
+        payload=transact.send(adr_x,adr_y,amount,timestamp, md5_choice,"")
         signature = encrypt.encrypt_with_private_key(private_key,payload)
         payload["signature"]=signature
 

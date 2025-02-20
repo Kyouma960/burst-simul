@@ -1,4 +1,4 @@
-def send(adr_x, adr_y, amount, timestamp, signature):
+def send(adr_x, adr_y, amount, timestamp, link, signature):
     return {
         'type':'transaction',
         'method':'send',
@@ -7,6 +7,7 @@ def send(adr_x, adr_y, amount, timestamp, signature):
         'amount': amount,
         'timestamp': timestamp,
         'signature': signature,
+        'link': link
     }
     
 

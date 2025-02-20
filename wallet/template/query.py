@@ -7,6 +7,12 @@ def general(adr_x):
     }
     return payload 
 
+def check_md5(adr_x):
+    payload={
+        'method':'check',
+        'adr_x':adr_x,
+    }
+
 def wallet(adr_x):
     payload={
         'type':'get',

@@ -46,6 +46,7 @@ def transact(data):
             return response
 
         if(method=='send'):
+            link=data.get("link")
             validity,epoch=send(link,method,adr_x)
             curated_data={
                 'method': method,
