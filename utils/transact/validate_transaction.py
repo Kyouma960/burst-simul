@@ -2,10 +2,10 @@ from utils.ledger import ledger_util
 import time
 
 rate_increment=10 #minutely rate
-expiry_time=2 #hours
+expiry_time=8 #hours
 
-def expiry_check(link, method, adr_x):
-    values=[method, adr_x]
+def expiry_check(link, adr_x):
+    values=[adr_x]
     ledger_list=ledger_util.ledger_scan(ledger_util.transact_path, values)
     for item in ledger_list:
         if (item.get("key")==link):
@@ -14,10 +14,10 @@ def expiry_check(link, method, adr_x):
     for item in ledger_list:
         if(item.get("key")==epoch):
             epoch_time=item.get("timestamp_node")
-        if((time.time()-epoch_time)<(expiry_time*60*60)):
-                epoch, False
-        else:
-                epoch, True
+            if((time.time()-epoch_time)<(expiry_time*60*60)):
+                return epoch, True
+            else:
+                return epoch, False
 
 def is_valid_burn(method, adr_x, amount):
     if (method=='burn'):
@@ -50,7 +50,6 @@ def is_valid_md5(adr_x):
     print(ledger_list)
     for item in ledger_list:
         if (item.get("adr_y") == adr_x):
-            print("1")
             key_temp=item.get("key")
             md5_receive_list.append(item.get("key"))
             amount_list[key_temp] = item.get("amount")

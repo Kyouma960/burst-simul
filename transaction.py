@@ -6,8 +6,8 @@ def check(adr_x):
     response=validate_transaction.is_valid_md5(adr_x)
     return response
 
-def send(link, method, adr_x):
-    epoch, validity=not(validate_transaction.expiry_check(link,method,adr_x)) 
+def send(link, adr_x):
+    epoch, validity=validate_transaction.expiry_check(link,adr_x) 
     return validity, epoch
 
 def burn(method, adr_x ,amount):
@@ -40,6 +40,12 @@ def transact(data):
                 'key': key
             }
         
+            if(validity):
+                ledger_util.ledger_add(ledger_util.transact_path,curated_data)
+                response = {"message":"Valid", "balance":balance-amount}
+            else:
+                response = {"message":"Invalid Transaction.", "balance": balance}
+ 
 
         if(method=='check'):
 
@@ -48,7 +54,7 @@ def transact(data):
 
         if(method=='send'):
             link=data.get("link")
-            validity,epoch=send(link,method,adr_x)
+            validity,epoch=send(link,adr_x)
             curated_data={
                 'method': method,
                 'adr_x': adr_x,
@@ -58,13 +64,13 @@ def transact(data):
                 'epoch': epoch,
                 'key': key
             }
-
-        if(validity):
-            ledger_util.ledger_add(ledger_util.transact_path,curated_data)
-            response = {"message":"Valid", "balance":balance-amount}
-        else:
-            response = {"message":"Invalid Transaction.", "balance": balance}
-    
+            if(validity):
+                ledger_util.ledger_add(ledger_util.transact_path,curated_data)
+                response = {"message":"Valid", "transaction":"done"}
+            else:
+                response = {"message":"Invalid Transaction."}
+ 
+   
 
     except Exception as e:
         print(e)
