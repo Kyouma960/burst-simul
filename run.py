@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-import transaction, endorse
+import transaction, endorsement
 from utils.verify import signature_verify, wallet_verify
 app = Flask(__name__)
 
@@ -25,7 +25,7 @@ def handle_post():
 
 
     elif (data.get("type")=="endorse"):
-        endorse(data) 
+        response=endorsement.endorse(data) 
 
     else:
         response = {
