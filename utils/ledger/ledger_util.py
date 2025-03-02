@@ -28,8 +28,12 @@ def ledger_scan(path, values):
     ledger = ledger_read(path)
     return [
         entry for entry in ledger
-        if any(value in entry.values() or value in str(entry) for value in values)
+        if all(value in entry.values() for value in values)
     ]
+
+
+
+
 
 
 #def wallets(adr_x, adr_y, amount, method, timestamp, timestamp_node):

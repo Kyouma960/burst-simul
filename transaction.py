@@ -42,6 +42,7 @@ def transact(data):
         
             if(validity):
                 ledger_util.ledger_add(ledger_util.transact_path,curated_data)
+                print('test')
                 response = {"message":"Valid", "balance":balance-amount}
             else:
                 response = {"message":"Invalid Transaction.", "balance": balance}

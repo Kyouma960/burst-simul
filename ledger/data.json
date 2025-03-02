@@ -133,5 +133,23 @@
         "link": "9064f57e9ba217769f76628af3aa9087",
         "epoch": "9064f57e9ba217769f76628af3aa9087",
         "key": "894b876687b0ce24e45d941e7ca79627"
+    },
+    {
+        "method": "burn",
+        "adr_x": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr3ydNn7dxM7DcBuRCwgn\niglfJlNlNvUuvUSXFMtNLoXfdKWn7KDzL5KOgss8BA9ocXTfWBgeXueO8PJWlOog\n9zaGtARZ42WxET/YVBzQyjUd53DpiUbueashOzNWuAWdTQEpuoR3VHbMuu2PeyoY\nTxYeQ4+ZeSZp3XUBZlt7dds38xzTlMYuAALaPtfEiFgpLfnGhIt6St9uFMi7jI8N\nfnqCK9BwK8w8etIqPuHca+Fyntx+0gyakBmeWLgoGU4+gpDrU0IF9ijQ2jxFDh6T\nJkTJ6wj5iT2IgYA8OPuzFS7etLCx/QfO7wtbG5ZSDYdcD91R5TgVul9VEg9mfDPA\nuwIDAQAB\n-----END PUBLIC KEY-----\n",
+        "adr_y": "tnaodihtou",
+        "amount": 100,
+        "signature": "74044d3c8a99aef389dd8dcaaaf308493f1c540ba25d75d96f5e5c2525ffae445cc314da9485cb4d528e55b4e8051f96f2cd16f497b66a10f1588f4fcd5d15696d6b596b14b84467badf48ed0c62bf1caccda82eee7372204c5e8d9e2bb1231013ddc1a53bc4c5254ee5cbd84730b20479c7d1d349ef9e59c764cd457ae357a97be0a736d5a990d12867b61621b7570a853de93cc0a81693e9112ce8e410ce946976fe03011caf1dba5ba96c2e4e91d588453766c5f5cda4b0b18fcee57a763a1cf37f8cf7dd97d8fd907ebbcd89b55712101ba4d3701b0ad591307ac5f75a1ffd9abedad125ac62fadc473338530d73de6ca20ed1ca16ae8318c7563a527089",
+        "timestamp_node": 1740786247.8321898,
+        "key": "ee0e55d2530d6c5495cf06c8f15df2b4"
+    },
+    {
+        "method": "burn",
+        "adr_x": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApmQeWjtf065zesjxqkPu\nlMwWxl+gQyn4ZXFsOMSwSiTP2W4OKNMEib83fwCniHmezaPBLidEeckVGENhPY1U\nX+9h18Mj2K/cY0T1T3TnXMC6gI8gYcX5NYetnGidZZa/vZ/Q7XhFSiZldkrHAqZW\nlblpJlh8Ug5cA4VzlPRlEJIQ3mFs9QLIOtEXiHv0kir1O3+5NCJjXILvmXyUiHFg\nq+7T0Z3SO/cD6XjC7XtaJCNKP/41CATInt1my7SMnwiRv4w3PVSoX8gjLBK/zUMM\nIQVXEbfnndiV0o6SoyKj3K/+iCZhPCIn7jAcZ2vZFjkXumiRwNR76m/DgTedp5GL\nhwIDAQAB\n-----END PUBLIC KEY-----\n",
+        "adr_y": "1",
+        "amount": 1,
+        "signature": "5d2a9cb1231a77f7ee55dc982d44dad23612eb28a200761eb0cabbeeafbf6435deec10aeb35cc4fd027ccc8473a898e93ab215f879327ae9b94ec830e91cb03043de87d394076e66aae36c748632aa43b72dde185e8419d5434f75353f0cbd5c9ea4e48991013668f7052a6c819e76cf653899ebe2b124c189ce12b388832377639c21178b938b08c3591a1602ede83e9f8f8a222dce138111694dd8dc401fbe6b4f7ca85377c845c78cb868478a933cdde924a4f54a66e15bf1ad10ec035c4768d524cce428297f6ea8923f177b53220148db292ffc320567d78ccbf8f6fe4a195df8b0095182f40c7ff21aa330842eee799a9d75fba21ceff61bbc3efc7fb4",
+        "timestamp_node": 1740913478.037732,
+        "key": "62bd12f4bb6059b8fc2fdf4bbaf4e0ec"
     }
 ]

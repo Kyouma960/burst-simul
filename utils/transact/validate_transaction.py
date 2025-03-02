@@ -23,10 +23,15 @@ def is_valid_burn(method, adr_x, amount):
     if (method=='burn'):
         total=0
         timestamps=[]
-        ledger_list=ledger_util.ledger_read(ledger_util.transact_path)
+        values=[adr_x, method]
+        ledger_list=ledger_util.ledger_scan(ledger_util.transact_path, values)
+        print(ledger_list)
         for item in ledger_list:
             if (item.get("adr_x") == adr_x):
-                total=total+int(item.get("amount"))
+                try:
+                    total=total+int(item.get("amount"))
+                except:
+                    print("Something wrong with amount")
                 timestamps.append(item.get("timestamp_node"))
         wallet_epoch=min(timestamps)
         wallet_increment=(time.time()-wallet_epoch)*(rate_increment/60)
