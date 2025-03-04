@@ -2,10 +2,9 @@ import json
 import hashlib
 
 transact_path = 'ledger/data.json'
-endorse_path = 'ledger/endorse.json'
 wallet_path = 'ledger/wallets.json'
 consti_path = 'ledger/consti.json'
-delegate_path = 'ledger/delegate.json'
+endorse_path = 'ledger/endorse.json'
 
 def ledger_read(path):
     with open(path, "r") as file:
